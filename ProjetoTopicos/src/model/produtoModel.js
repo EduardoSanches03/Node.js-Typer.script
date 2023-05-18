@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const produtoModelSchema = new mongoose.Schema({
-    Marca: String,
+    tipo: String,
+    marca: String,
     valor: Number
 })
 
