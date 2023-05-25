@@ -1,17 +1,12 @@
 const  express = require("express");
 const rotas = express.Router();
-const clienteController = require("./controller/clienteController");
 const pedidoController = require("./controller/pedidoController");
-
-rotas.get('/cliente', clienteController.read);
-rotas.post('/cliente', clienteController.create);
-rotas.delete('/cliente/:id',clienteController.delete);
-rotas.post('/cliente/:id', clienteController.update);
-
+const dadosClienteController = require("./controller/dadosCliente.Controller");
 
 rotas.get('/pedido', pedidoController.read);
 rotas.post('/pedido', pedidoController.create);
 rotas.post('/pedido/:id', pedidoController.update);
 
-
+rotas.get('/form', dadosClienteController.form);
+rotas.post('/dados', dadosClienteController.registrar);
 module.exports = rotas;
