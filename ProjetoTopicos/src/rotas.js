@@ -7,6 +7,9 @@ rotas.get('/pedido', pedidoController.read);
 rotas.post('/pedido', pedidoController.create);
 rotas.post('/pedido/:id', pedidoController.update);
 
-rotas.get('/form', dadosClienteController.form);
+
+rotas.get('/menu', dadosClienteController.menu);
+rotas.get('/menuCliente.html', dadosClienteController.menuCliente);
+rotas.get('/formCadastro.html', dadosClienteController.formCadastro);
 rotas.post('/dados', dadosClienteController.registrar);
 module.exports = rotas;
