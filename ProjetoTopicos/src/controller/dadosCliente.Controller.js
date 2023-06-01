@@ -40,6 +40,13 @@ module.exports={
             res.send(data);
           });
     },
+    
+    async listar(req, res) {
+      
+        const listarClientes = await Cliente.find();
+    
+        res.render('listaClientes.ejs', { listarClientes });
+    },
 
     async registrar (req,res){
         const {nome,cpf,telefone,email} = req.body;
@@ -51,10 +58,8 @@ module.exports={
             email
         }); 
        console.log("Novo cliente cadastrado!");
-            res.send("Nome: "+req.body.nome+
-                 "<br>CPF: "+req.body.cpf+
-                 "<br>Telefone: "+req.body.telefone+
-                 "<br>Email: "+req.body.email);
+      
+       res.redirect('/menuCliente.html');
 
     }
 

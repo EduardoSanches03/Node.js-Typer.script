@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body{
+        font-family: cursive;
+    }
+    footer{
+        position: absolute;
+        top: 90%;
+    }
+    a{
+            font-size: 20px;
+            color: brown;
+    }
+    li{
+        padding: 5px;
+    }
+  </style>
+  <title>Lista de Clientes</title>
+</head>
+<body>
+  <h1>Lista de Clientes</h1>
+  <ul>
+    <% listarClientes.forEach(function(cliente) { %>
+      <li>
+        <strong>Nome:</strong> <%= cliente.nome %><br>
+        <strong>CPF:</strong> <%= cliente.cpf %><br>
+        <strong>Telefone:</strong> <%= cliente.telefone %><br>
+        <strong>Email:</strong> <%= cliente.email %>
+      </li>
+    <% }); %>
+  </ul>
+
+  <footer><a href="./menuCliente.html">Retornar para menu de clientes</a></footer>
+</body>
+</html>

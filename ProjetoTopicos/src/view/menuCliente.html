@@ -4,10 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+        footer{
+            position: absolute;
+            top: 90%;
+        }
+        .center{
+            text-align: center;
+        }
+        body{
+            font-family: cursive;
+        }
+        h1{
+            font-size: 35px;
+        }
+        
+        a{
+            padding: 20px;
+            font-size: 20px;
+            color: brown;
+        }
+        </style>
+    <title>menu cliente</title>   
 </head>
 <body>
-    <h1>Menu de Clientes</h1>
-    <a href="formCadastro.html">Cadastrar Cliente</a>
+    <div class="center">
+        <h1>Menu de Clientes</h1>
+        <a href="listarCliente.ejs">Listar Clientes</a>
+        <a href="formCadastro.html">Cadastrar Cliente</a>
+    </div>
+    <footer>
+        <a href="menu.html">Retornar para o menu inicial</a>
+    </footer>
 </body>
 </html>
