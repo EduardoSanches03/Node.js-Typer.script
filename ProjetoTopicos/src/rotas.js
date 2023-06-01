@@ -13,6 +13,10 @@ rotas.get('/menu.html', dadosClienteController.menu);
 rotas.get('/menuCliente.html', dadosClienteController.menuCliente);
 rotas.get('/listarCliente.ejs', dadosClienteController.listar);
 rotas.get('/formCadastro.html', dadosClienteController.formCadastro);
+rotas.get('/deletarCliente.html', dadosClienteController.deletarCliente);
+rotas.get('/atualizarCliente.ejs', dadosClienteController.atualizar);
 rotas.post('/dados', dadosClienteController.registrar);
+rotas.post('/delete', dadosClienteController.delete);
+
 
 module.exports = rotas;

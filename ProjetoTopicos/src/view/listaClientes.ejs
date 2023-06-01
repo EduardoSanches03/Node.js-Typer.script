@@ -25,6 +25,7 @@
   <ul>
     <% listarClientes.forEach(function(cliente) { %>
       <li>
+        <strong>ID:</strong> <%= cliente._id %><br>
         <strong>Nome:</strong> <%= cliente.nome %><br>
         <strong>CPF:</strong> <%= cliente.cpf %><br>
         <strong>Telefone:</strong> <%= cliente.telefone %><br>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+        font-family: cursive;
+        }
+    a{
+            font-size: 20px;
+            color: brown;
+            padding: 10px;
+    }
+    footer{
+        position: absolute;
+        top: 90%;
+    }
+    #delete{
+        width: 320px;
+        height: 270px;
+    }
+    </style>
+    <title>Deletar Cadastro</title>
+</head>
+<body>
+    <h1>Deletar Cadastro</h1>
+    <a href="listarCliente.ejs">Consultar lista de clientes</a>
+    <div id="delete">
+        <form id="formulario" action="delete" method="post">
+            <fieldset>
+                <label>Insira o ID: </label> <br>
+                <input type="text" name="id">
+                <input type="submit" name="Enviar">
+            </fieldset>
+        </form>
+    </div>
+    <footer>
+        <a href="menuCliente.html">Retornar para o menu de clientes</a>
+    </footer>
+</body>
+</html>

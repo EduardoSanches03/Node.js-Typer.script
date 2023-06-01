@@ -41,10 +41,21 @@ module.exports={
           });
     },
     
-    async listar(req, res) {
-      
-        const listarClientes = await Cliente.find();
+    async deletarCliente(req,res){
+      const filePath = path.join(__dirname,'../view/deletarCliente.html');
+      fs.readFile(filePath, 'utf8', (err, data) => {
+          if (err) {
+            console.error('Erro ao ler o arquivo:', err);
+            return res.status(500).send('Ocorreu um erro ao processar a solicitação.');
+          }
+          res.set('Content-Type', 'text/html');
+          res.send(data);
+        });
+  },
+
     
+    async listar(req, res) {
+        const listarClientes = await Cliente.find();
         res.render('listaClientes.ejs', { listarClientes });
     },
 
@@ -61,6 +72,21 @@ module.exports={
       
        res.redirect('/menuCliente.html');
 
-    }
+    },
+
+    async delete(req, res) {
+      const { id } = req.body;
+          const clienteDeletado = await Cliente.findByIdAndDelete(id);
+          
+          console.log('Cliente deletado:', clienteDeletado);
+          res.redirect('/menuCliente.html');    
+  },
+
+  async atualizar(req, res) {
+    const { id } = req.body;
+        const atualizarClientes = await Cliente.findById(id);
+        res.render('atualizarCliente.ejs', { atualizarClientes });
+}
+
 
 }
