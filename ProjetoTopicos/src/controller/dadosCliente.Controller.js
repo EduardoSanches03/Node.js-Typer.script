@@ -53,6 +53,17 @@ module.exports={
         });
   },
 
+  async atualizarCliente(req,res){
+    const filePath = path.join(__dirname,'../view/atualizarClienteID.html');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+          console.error('Erro ao ler o arquivo:', err);
+          return res.status(500).send('Ocorreu um erro ao processar a solicitação.');
+        }
+        res.set('Content-Type', 'text/html');
+        res.send(data);
+      });
+  },
     
     async listar(req, res) {
         const listarClientes = await Cliente.find();
@@ -84,9 +95,33 @@ module.exports={
 
   async atualizar(req, res) {
     const { id } = req.body;
-        const atualizarClientes = await Cliente.findById(id);
-        res.render('atualizarCliente.ejs', { atualizarClientes });
-}
+    const cliente = await Cliente.findById(id);
+  
+    if (!cliente) {
+      return res.status(404).send('Cliente não encontrado.');
+    }
+  
+    res.render('atualizarCliente.ejs', { cliente });
+  },
+  
+  
+  async salvarAtualizacao(req, res) {
+    const { id, nome, cpf, telefone, email } = req.body;
+  
+    const clienteAtualizado = await Cliente.findByIdAndUpdate(
+      id,
+      { nome, cpf, telefone, email },
+      { new: true }
+    );
+  
+    if (!clienteAtualizado) {
+      return res.status(404).send('Cliente não encontrado.');
+    }
+  
+    console.log('Cliente atualizado:', clienteAtualizado);
+    res.redirect('/menuCliente.html');
+  }
+  
 
 
 }

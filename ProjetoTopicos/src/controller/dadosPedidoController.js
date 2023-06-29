@@ -1,7 +1,29 @@
 const Pedido = require("../model/pedidoModel");
 const Cliente = require("../model/clienteModel");
 
+const path = require('path');
+const fs = require('fs');
+
+
 module.exports={
+
+    async menuPedido(req,res){
+        const filePath = path.join(__dirname,'../view/menuPedido.html');
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+              console.error('Erro ao ler o arquivo:', err);
+              return res.status(500).send('Ocorreu um erro ao processar a solicitação.');
+            }
+            res.set('Content-Type', 'text/html');
+            res.send(data);
+          });
+    },
+
+    async listarPedido(req, res) {
+        const listarPedidos = await Pedido.find();
+        res.render('listarPedidos.ejs', { listarPedidos });
+    },
+
     async read(req,res){
         try{
             const pedidoList = await pedido.find();
@@ -10,6 +32,18 @@ module.exports={
             return res.status(400).send({error: "Nenhum pedido realizado"});
         }
     },
+
+    async cadastroPedido(req, res) {
+
+        const { nome, marca, valor } = req.body;
+        const criaProduto = await Pedido.create({
+          nome,
+          marca,
+          valor
+        });
+        console.log("produto adicionado"+ criaProduto.nome);
+        res.redirect('/menu.html');
+      },
 
     async create(req,res){
         try{

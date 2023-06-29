@@ -1,11 +1,12 @@
 const  express = require("express");
 const rotas = express.Router();
-const pedidoController = require("./controller/pedidoController");
+const dadosPedidoController = require("./controller/dadosPedidoController");
 const dadosClienteController = require("./controller/dadosCliente.Controller");
 
-rotas.get('/pedido', pedidoController.read);
-rotas.post('/pedido', pedidoController.create);
-rotas.post('/pedido/:id', pedidoController.update);
+
+rotas.get('/menuPedido.html', dadosPedidoController.menuPedido);
+rotas.get('/listarPedido.ejs', dadosPedidoController.listarPedido);
+rotas.get('/cadastroProduto.html', dadosPedidoController.formCadastro);
 
 
 rotas.get('/menu', dadosClienteController.menu);
@@ -14,7 +15,11 @@ rotas.get('/menuCliente.html', dadosClienteController.menuCliente);
 rotas.get('/listarCliente.ejs', dadosClienteController.listar);
 rotas.get('/formCadastro.html', dadosClienteController.formCadastro);
 rotas.get('/deletarCliente.html', dadosClienteController.deletarCliente);
+rotas.get('/atualizarClienteID.html', dadosClienteController.atualizarCliente);
 rotas.get('/atualizarCliente.ejs', dadosClienteController.atualizar);
+rotas.get('/atualizarClienteID.html', dadosClienteController.atualizar);
+rotas.post('/atualizarCliente.html', dadosClienteController.salvarAtualizacao);
+rotas.post('/atualizar', dadosClienteController.atualizar);
 rotas.post('/dados', dadosClienteController.registrar);
 rotas.post('/delete', dadosClienteController.delete);
 

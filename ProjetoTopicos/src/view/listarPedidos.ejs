@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body{
+        font-family: cursive;
+    }
+    footer{
+        position: absolute;
+        top: 90%;
+    }
+    a{
+            font-size: 20px;
+            color: brown;
+    }
+    li{
+        padding: 5px;
+    }
+  </style>
+  <title>Lista de Pedidos</title>
+</head>
+<body>
+  <h1>Lista de Pedidos</h1>
+  <ul>
+    <% listarPedidos.forEach(function(pedido) { %>
+      <li>
+
+        <strong>ID:</strong> <%= pedido._id %><br>
+        <strong>Produto:</strong> <%= pedido.produto %><br>
+        <strong>Valor:</strong> <%= pedido.valor %><br>
+        <strong>Status:</strong> <%= pedido.status %><br>
+      </li>
+    <% }); %>
+  </ul>
+
+  <footer><a href="./menuPedido.html">Retornar para menu de pedidos</a></footer>
+</body>
+</html>
