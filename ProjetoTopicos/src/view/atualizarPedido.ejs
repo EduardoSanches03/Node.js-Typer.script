@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Atualizar Pedido</title>
+</head>
+<style>
+    body{
+        font-family: cursive;
+    }
+    label{
+        display: grid;
+        padding: 10px;
+    }
+</style>
+<body>
+  <h1>Atualizar Pedido</h1>
+  <form action="/atualizarPedido.html" method="POST">
+    <fieldset>
+        <input type="hidden" name="id" value="<%= pedido._id %>">
+        <label for="produto">Produto:</label>
+        <input type="text" name="produto" value="<%= pedido.produto %>">
+        <br>
+        <label for="valor">Valor:</label>
+        <input type="text" name="valor" value="<%= pedido.valor %>">
+        <br>
+        <label for="status">Status:</label>
+        <select name="status">
+            <option value="Em andamento" <%= pedido.status === 'Em andamento' ? 'selected' : '' %>>Em andamento</option>
+            <option value="Concluído" <%= pedido.status === 'Concluído' ? 'selected' : '' %>>Concluído</option>
+            <option value="Cancelado" <%= pedido.status === 'Cancelado' ? 'selected' : '' %>>Cancelado</option>
+        </select>
+        <br>
+        <button type="submit">Atualizar</button>
+    </fieldset>
+  </form>
+</body>
+</html>

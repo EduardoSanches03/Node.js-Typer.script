@@ -18,26 +18,36 @@
         top: 90%;
     }
     #delete{
-        width: 320px;
-        height: 270px;
+        display: flex;
     }
+    
     </style>
-    <title>Buscar ID</title>
+    <title>Realizar pedido por ID</title>
 </head>
 <body>
-    <h1>Informe o cliente que deseja realizar o pedido: </B></h1>
+    <h1>Realizar Pedido: </B></h1>
     <a href="listarCliente.ejs">Consultar lista de clientes</a>
     <div id="delete">
-        <form id="formulario" action="cadastroPedido.html" method="post">
+        <form id="formulario" action="/dadosPedido" method="post">
             <fieldset>
-                <label>Insira o ID: </label> <br>
-                <input type="text" name="id">
+                <label>Insira o ID do cliente: </label><br>
+                <input type="text" name="id"><br>
+                <label>Produto:</label><br>
+                <input type="text" name="produto" /><br>
+                <label>Valor:</label><br>
+                <input type="text" name="valor" /><br>
+                <label>Status: </label><br>
+                <select name="status">
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
                 <input type="submit" name="Enviar">
             </fieldset>
         </form>
     </div>
     <footer>
-        <a href="menuCliente.html">Retornar para o menu de clientes</a>
+        <a href="menuPedido.html">Retornar para o menu de clientes</a>
     </footer>
 </body>
 </html>

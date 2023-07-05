@@ -47,71 +47,100 @@ module.exports = {
     });
   },
 
-  async listarPedido(req, res) {
-    const listarPedidos = await Pedido.find();
-    res.render("listarPedidos.ejs", { listarPedidos });
+  async deletarPedido(req, res) {
+    const filePath = path.join(__dirname, "../view/deletarPedido.html");
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err) {
+        console.error("Erro ao ler o arquivo:", err);
+        return res
+          .status(500)
+          .send("Ocorreu um erro ao processar a solicitação.");
+      }
+      res.set("Content-Type", "text/html");
+      res.send(data);
+    });
   },
 
-async buscarID(req,res){
-  const {id} = req.body
-  const cliente_pedido = await Cliente.findById(id);
-
-  const {produto, valor, status } = req.body;
-    const criaProduto = await Pedido.create({
-      nomeCliente: cliente_pedido.nomeCliente,
-      cpfCliente: cliente_pedido.cpfCliente,
-      produto,
-      valor,
-      status,
+  async atualizarPedidoRota(req, res) {
+    const filePath = path.join(__dirname, "../view/atualizarPedidoID.html");
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err) {
+        console.error("Erro ao ler o arquivo:", err);
+        return res
+          .status(500)
+          .send("Ocorreu um erro ao processar a solicitação.");
+      }
+      res.set("Content-Type", "text/html");
+      res.send(data);
     });
-    console.log("produto adicionado " + criaProduto.nome);
-    res.redirect("/menuPedido.html");
-},
-
-/*
-  async cadastroPedido(req, res) {
-    const { produto, valor, status } = req.body;
-    const criaProduto = await Pedido.create({
-      produto,
-      valor,
-      status,
-    });
-    console.log("produto adicionado " + criaProduto.nome);
-    res.redirect("/menuPedido.html");
   },
 
-  */
+  async listarPedidos(req, res) {
+    const pedidos = await Pedido.find().populate("cliente");
+    res.render("listarPedidos.ejs", { listarPedidos: pedidos });
+  },
 
-  async create(req, res) {
+  async buscarID(req, res) {
     try {
-      const { cliente, produto, valor, status } = req.body;
-      const clienteEncontrado = await Cliente.findById(cliente);
+      const { id, produto, valor, status } = req.body;
+
+      const cliente_pedido = await Cliente.findById(id);
+
       const pedido = await Pedido.create({
-        cliente: clienteEncontrado._id,
-        cpfCliente: clienteEncontrado.cpf,
-        nomeCliente: clienteEncontrado.nome,
+        cliente: cliente_pedido._id,
+        cpfCliente: cliente_pedido.cpf,
+        nomeCliente: cliente_pedido.nome,
         produto,
         valor,
         status,
       });
-      return res.json(pedido);
+
+      console.log("Produto adicionado: " + pedido.produto);
+      res.redirect("/menuPedido.html");
     } catch (err) {
-      res.status(400).send({ error: "Erro ao criar o pedido" });
+      console.error("Erro ao criar o pedido:", err);
+      res.status(400).send("Não foi possível criar o pedido.");
     }
   },
 
-  async update(req, res) {
+  async deletePedido(req, res) {
+    const { id } = req.body;
+    const pedidoDeletado = await Pedido.findByIdAndDelete(id);
+
+    console.log("Pedido deletado:", pedidoDeletado);
+    res.redirect("/menuPedido.html");
+  },
+
+  async atualizarPedido(req, res) {
+    const { id } = req.body;
+    const pedido = await Pedido.findById(id);
+
+    if (!pedido) {
+      return res.status(404).send("Pedido não encontrado.");
+    }
+
+    res.render("atualizarPedido.ejs", { pedido });
+  },
+
+  async salvarAtualizacaoPedido(req, res) {
+    const { id, produto, valor, status } = req.body;
+
     try {
-      const { id } = req.params;
-      const { status } = req.body;
-      const pedidoAlterar = await Pedido.findOne({ _id: id });
+      const pedidoAtualizado = await Pedido.findByIdAndUpdate(
+        id,
+        { produto, valor, status },
+        { new: true }
+      );
 
-      pedidoAlterar.status = status;
+      if (!pedidoAtualizado) {
+        return res.status(404).send("Pedido não encontrado.");
+      }
 
-      await pedidoAlterar.save();
-      return res.json(pedidoAlterar);
+      console.log("Pedido atualizado:", pedidoAtualizado);
+      res.redirect("/menuPedido.html");
     } catch (err) {
-      res.status(400).send({ error: "Não foi possível realziar a alteração" });
+      console.error("Erro ao atualizar o pedido:", err);
+      res.status(400).send("Não foi possível atualizar o pedido.");
     }
   },
 };

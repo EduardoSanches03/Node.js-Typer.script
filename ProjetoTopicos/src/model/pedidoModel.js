@@ -1,23 +1,24 @@
 const mongoose = require("mongoose");
-const pedidoModelSchema = new mongoose.Schema({
+
+const pedidoSchema = new mongoose.Schema({
   cliente: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "cliente",
+    ref: "Cliente",
+    required: true,
   },
-
-  cpfCliente: {
-    type: mongoose.Schema.Types.String,
-    ref: "cliente",
+  produto: {
+    type: String,
+    required: true,
   },
-
-  nomeCliente: {
-    type: mongoose.Schema.Types.String,
-    ref: "cliente",
+  valor: {
+    type: Number,
+    required: true,
   },
-
-  produto: String,
-  valor: Number,
-  status: String,
+  status: {
+    type: String,
+    enum: ["Pendente", "Em andamento", "Concluído"],
+    default: "Pendente",
+  },
 });
 
-module.exports = mongoose.model("pedido", pedidoModelSchema);
+module.exports = mongoose.model("Pedido", pedidoSchema);
